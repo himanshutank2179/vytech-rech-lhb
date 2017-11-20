@@ -60,7 +60,7 @@ router.post('/signup', function (req, res) {
 /////////////////////////////////
 ////// LOGIN WS /////////////////
 ////////////////////////////////
-api.post('/login', function (req, res) {
+router.post('/login', function (req, res) {
     User.findOne({
         email: req.body.email
     }).select(['password', 'username', 'email', 'first_name', 'last_name'])
@@ -72,7 +72,7 @@ api.post('/login', function (req, res) {
             } else if (user) {
                 var validPassword = user.comparePassword(req.body.password);
                 if (!validPassword) {
-                    req.send({'status': 404, 'message': 'Invalid credentials.'});
+                    res.send({'status': 404, 'message': 'Invalid credentials.'});
                 } else {
                     //generating web token...
                     var token = createToken(user);
@@ -81,7 +81,6 @@ api.post('/login', function (req, res) {
                         message: "successfuly login!",
                         data: user,
                         token: token
-
                     });
                 }
             }
