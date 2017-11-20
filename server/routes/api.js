@@ -38,7 +38,7 @@ router.post('/signup', function (req, res) {
         if (err) {
             console.log('Error in user signup');
         } else {
-            res.json(insertedUser);
+            res.json({'status': 200, 'message': 'User has been registered!'});
         }
     });
 });
