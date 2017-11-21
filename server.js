@@ -7,7 +7,7 @@ var config = require('./config');
 const api = require('./server/routes/api');
 const branch = require('./server/routes/branch');
 const category = require('./server/routes/category');
-const category = require('./server/routes/service');
+const service = require('./server/routes/service');
 
 
 const port = config.port;
