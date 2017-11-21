@@ -46,7 +46,10 @@ router.use(function (req, res, next) {
 //GET ALL SERVICES
 
 router.post('/services', function (req, res) {
-    Service.find({_id:req.body.id}, function (err, services) {
+    Service.find({
+        category_id: req.body.category_id,
+        branch_id: req.body.branch_id,
+    }, function (err, services) {
         if (err) {
             res.send(err);
             return;
@@ -54,7 +57,6 @@ router.post('/services', function (req, res) {
         res.json(services);
     });
 });
-
 
 
 //ADD BRANCH WS
@@ -78,8 +80,6 @@ router.post('/services', function (req, res) {
 //         }
 //     });
 // });
-
-
 
 
 module.exports = router;
