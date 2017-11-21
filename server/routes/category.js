@@ -19,7 +19,7 @@ mongoose.connect(config.database, function (err) {
 ////// ALL CATEGORY WS /////////////////
 ////////////////////////////////
 router.get('/all-category', function (req, res) {
-    Category.find({}, function (err, categories) {
+    Category.find({}, '_id name',function (err, categories) {
         if (err) {
             res.send(err);
             return;
