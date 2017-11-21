@@ -6,8 +6,9 @@ var config = require('./config');
 
 const api = require('./server/routes/api');
 const branch = require('./server/routes/branch');
-const category = require('./server/routes/category');
 const service = require('./server/routes/service');
+const category = require('./server/routes/category');
+
 
 
 const port = config.port;
@@ -22,8 +23,9 @@ app.use(bodyParser.json());
 
 app.use('/api', api);
 app.use('/api/branch', branch);
-app.use('/api/category', category);
 app.use('/api/service', service);
+app.use('/api/category', category);
+
 
 
 
