@@ -11,6 +11,8 @@ const userSchema = new Schema({
         password: String,
         phone: String,
         address: String,
+        user_type: {type: Number},
+        branch_id: [{type: Schema.Types.ObjectId, ref: 'branches'}]
     },
     {
         timestamps: true
@@ -31,6 +33,6 @@ userSchema.pre('save', function (next) {
 //Creating Method for check password is match or not
 userSchema.methods.comparePassword = function (password) {
     var user = this;
-    return bcrypt.compareSync(password,user.password);
+    return bcrypt.compareSync(password, user.password);
 }
 module.exports = mongoose.model('user', userSchema, 'users');

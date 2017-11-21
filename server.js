@@ -4,6 +4,8 @@ const path = require('path');
 var config = require('./config');
 
 const api = require('./server/routes/api');
+const branch = require('./server/routes/branch');
+
 const port = config.port;
 
 const app = express();
@@ -14,6 +16,8 @@ app.use(bodyParser.json());
 
 
 app.use('/api', api);
+
+app.use('/api/branch', branch);
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

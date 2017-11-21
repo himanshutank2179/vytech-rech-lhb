@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const jsonwebtoken = require('jsonwebtoken');
 var config = require('../../config');
 const User = require('../models/User');
+const Branch = require('../models/Branch');
 const secretKey = config.secretKey;
 
 function createToken(user) {
@@ -87,5 +88,6 @@ router.post('/login', function (req, res) {
         });
 });
 
-
 module.exports = router;
+
+
