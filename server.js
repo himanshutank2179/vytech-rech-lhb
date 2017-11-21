@@ -6,7 +6,7 @@ var config = require('./config');
 
 const api = require('./server/routes/api');
 const branch = require('./server/routes/branch');
-const service = require('./server/routes/service');
+var service = require('./server/routes/service');
 const category = require('./server/routes/category');
 
 

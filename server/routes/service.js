@@ -6,7 +6,6 @@ const router = express.Router();
 const jsonwebtoken = require('jsonwebtoken');
 
 mongoose.Promise = global.Promise;
-
 mongoose.connect(config.database, function (err) {
     if (err) {
         console.error(' Error in connect to db! ' + err);
