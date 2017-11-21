@@ -43,6 +43,28 @@ router.use(function (req, res, next) {
     }
 });
 
+//ADD BRANCH WS
+router.post('/add-service', function (req, res) {
+    console.log('@add-service');
+    var service = new Service();
+
+    service.name = req.body.name;
+    service.image = req.body.image;
+    service.price = req.body.price;
+    service.interval_time = req.body.interval_time;
+    service.branch_id = req.body.branch_id;
+    service.category_id = req.body.category_id;
+
+
+    service.save(function (err, insertedService) {
+        if (err) {
+            console.log('Error in add service');
+        } else {
+            res.json({'status': 200, 'message': 'service inserted!'});
+        }
+    });
+});
+
 
 
 
