@@ -59,7 +59,7 @@ router.get('/all-services', function (req, res) {
 ////////////////////////////////
 
 //ADD SERVICE WS
-router.post('/add-service', function (req, res) {
+router.post('/service', function (req, res) {
     console.log('@add-service');
     var service = new Service();
 
