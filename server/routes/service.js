@@ -44,38 +44,6 @@ router.use(function (req, res, next) {
 });
 
 
-/////////////////////////////////
-////// SERVICES BY branch_id AND category_id ///
-////////////////////////////////
-router.get('/all-services', function (req, res) {
-    Service.find({}, '_id name',function (err, services) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-        res.json(services);
-    });
-});
-
-/////////////////////////////////
-////// ADD SERVICE WS /////////////////
-////////////////////////////////
-
-//ADD SERVICE WS
-router.post('/service', function (req, res) {
-    console.log('@add-service');
-    var service = new Service();
-
-    service.name = req.body.name;
-
-    service.save(function (err, insertedService) {
-        if (err) {
-            console.log('Error in add service');
-        } else {
-            res.json({'status': 200, 'message': 'service inserted!'});
-        }
-    });
-});
 
 
 module.exports = router;
