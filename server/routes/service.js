@@ -13,6 +13,9 @@ mongoose.connect(config.database, function (err) {
         console.log('connected to the database');
     }
 });
+router.get('/', function (req, res) {
+    res.send('api work on service route');
+});
 
 //Creating Middleware for token valid or not checkpoint
 router.use(function (req, res, next) {
