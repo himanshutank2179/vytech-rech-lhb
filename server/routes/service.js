@@ -5,17 +5,53 @@ const Service = require('../models/Service');
 const router = express.Router();
 const jsonwebtoken = require('jsonwebtoken');
 
+mongoose.Promise = global.Promise;
+
+mongoose.connect(config.database, function (err) {
+    if (err) {
+        console.error(' Error in connect to db! ' + err);
+    } else {
+        console.log('connected to the database');
+    }
+});
+
+//Creating Middleware for token valid or not checkpoint
+router.use(function (req, res, next) {
+    console.log('somebody just come to our app!');
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+
+    //check if token exist.
+    if (token) {
+        jsonwebtoken.verify(token, config.secretKey, function (err, decoded) {
+            if (err) {
+                res.json({
+                    status: 403,
+                    message: 'failed to authenticate user'
+                });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        res.json({
+            status: 403,
+            message: 'no token provided'
+        });
+    }
+});
+
 
 /////////////////////////////////
 ////// SERVICES BY branch_id AND category_id ///
 ////////////////////////////////
-router.post('/all-services', function (req, res) {
-    Category.find({name:req.params.name}, '_id name',function (err, categories) {
+router.get('/all-services', function (req, res) {
+    Service.find({}, '_id name',function (err, services) {
         if (err) {
             res.send(err);
             return;
         }
-        res.json(categories);
+        res.json(services);
     });
 });
 
