@@ -52,8 +52,8 @@ router.post('/service', function (req, res) {
     service.image = req.body.image;
     service.price = req.body.price;
     service.interval_time = req.body.interval_time;
-    service.branch_id = req.body.branch_id;
-    service.category_id = req.body.category_id;
+    // service.branch_id = req.body.branch_id;
+    // service.category_id = req.body.category_id;
 
 
     service.save(function (err, insertedService) {
