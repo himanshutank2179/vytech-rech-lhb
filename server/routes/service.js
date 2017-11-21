@@ -46,7 +46,7 @@ router.use(function (req, res, next) {
 //GET ALL SERVICES
 
 router.get('/services', function (req, res) {
-    Service.find({}, function (err, services) {
+    Service.find({_id:req.body.id}, function (err, services) {
         if (err) {
             res.send(err);
             return;
