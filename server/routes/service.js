@@ -46,8 +46,11 @@ router.use(function (req, res, next) {
 
 //GET ALL SERVICES
 
-router.post('/services', function (req, res) {
-    Service.find({}, function (err, services) {
+router.post('/get-services', function (req, res) {
+    Service.find({
+        category_id: req.body.category_id,
+        branch_id: req.body.branch_id
+    }, function (err, services) {
         if (err) {
             res.send(err);
             return;
@@ -58,7 +61,7 @@ router.post('/services', function (req, res) {
 
 
 //ADD BRANCH WS
-router.post('/service', function (req, res) {
+router.post('/add-service', function (req, res) {
     console.log('@add-service');
 
 
