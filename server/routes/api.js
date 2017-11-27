@@ -88,6 +88,50 @@ router.post('/login', function (req, res) {
         });
 });
 
+//Creating Middleware for token valid or not checkpoint
+router.use(function (req, res, next) {
+    console.log('somebody just come to our app!');
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+
+    //check if token exist.
+    if (token) {
+        jsonwebtoken.verify(token, config.secretKey, function (err, decoded) {
+            if (err) {
+                res.json({
+                    status: 403,
+                    message: 'failed to authenticate user'
+                });
+            } else {
+                req.decoded = decoded;
+                next();
+            }
+        });
+    } else {
+        res.json({
+            status: 403,
+            message: 'no token provided'
+        });
+    }
+});
+
+/////////////////////////////////
+////// GET EMP BY branch_id WS //
+////////////////////////////////
+//parameter {branch_id}
+router.post('/get-employees', function (req, res) {
+    User.find({
+        user_type: 3,
+        branch_id: req.body.branch_id
+    }, function (err, emps) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json(emps);
+    });
+});
+
+
 module.exports = router;
 
 

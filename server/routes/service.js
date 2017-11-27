@@ -45,7 +45,7 @@ router.use(function (req, res, next) {
 });
 
 //GET ALL SERVICES
-
+//parameter {category_id,branch_id}
 router.post('/get-services', function (req, res) {
     Service.find({
         category_id: req.body.category_id,
@@ -61,6 +61,7 @@ router.post('/get-services', function (req, res) {
 
 
 //ADD BRANCH WS
+// parameter{name, image, price,interval_time,duration,branch_id,category_id}
 router.post('/add-service', function (req, res) {
     console.log('@add-service');
 
@@ -74,7 +75,6 @@ router.post('/add-service', function (req, res) {
     service.duration = req.body.duration;
     service.branch_id = req.body.branch_id;
     service.category_id = req.body.category_id;
-
 
     service.save(function (err, insertedService) {
         if (err) {

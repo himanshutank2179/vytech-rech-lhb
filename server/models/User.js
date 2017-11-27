@@ -11,7 +11,7 @@ const userSchema = new Schema({
         password: String,
         phone: String,
         address: String,
-        user_type: {type: Number},
+        user_type: {type: Number}, /* 1 = super admin, 2 = admin, 3 = emp, 4 = user   */
         branch_id: {type: String, require: true}
         // branch_id: [{type: Schema.Types.ObjectId, ref: 'branches'}]
     },
@@ -36,4 +36,5 @@ userSchema.methods.comparePassword = function (password) {
     var user = this;
     return bcrypt.compareSync(password, user.password);
 }
+
 module.exports = mongoose.model('user', userSchema, 'users');
