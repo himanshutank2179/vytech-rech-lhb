@@ -55,7 +55,7 @@ router.post('/checkout', function (req, res) {
             console.log('Error in add service' + err);
         } else {
             order_detail.forEach(function (orderDetail, index, arr) {
-                res.json(orderDetail);
+                // res.json(orderDetail);
                 var od = new OrderDetails();
                 od.order_id = insertedOrder.order_id;
                 od.branch_id = orderDetail['branch_id'];
