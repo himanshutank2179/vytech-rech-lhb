@@ -61,8 +61,8 @@ router.post('/get-services', function (req, res) {
 
 //GET SINGLE SERVICE
 //parameter {service_id}
-router.get('/get-service', function (req, res) {
-    var service_id = req.params.id;
+router.get('/get-service:service_id', function (req, res) {
+    var service_id = req.params.service_id || req.param('service_id');
     Service.find({
         _id: service_id
     }, function (err, service) {
