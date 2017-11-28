@@ -55,7 +55,10 @@ router.get('/promocodes/:service_id', function (req, res) {
             res.send(err);
             return;
         }
-        res.json(promocodes);
+        res.json({
+            status: 200,
+            date: promocodes
+        });
     });
 });
 
