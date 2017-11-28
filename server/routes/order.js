@@ -43,8 +43,9 @@ router.use(function (req, res, next) {
 //ADD BRANCH WS
 // parameter{user_id, branch_id[], category_id[], service_id[], service_time[], employee_id[]}
 router.post('/checkout', function (req, res) {
+    var branch_id = req.body.branch_id;
     var order = new Order();
-    res.send(req.body.branch_id);
+    res.send(branch_id[0]);
 
 
 });
