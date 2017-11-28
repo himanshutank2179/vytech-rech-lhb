@@ -4,6 +4,7 @@ const config = require('../../config');
 const router = express.Router();
 const jsonwebtoken = require('jsonwebtoken');
 const Order = require('../models/Order');
+const OrderDetails = require('../models/OrderDetails');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database, function (err) {
@@ -43,9 +44,30 @@ router.use(function (req, res, next) {
 //ADD BRANCH WS
 // parameter{user_id, branch_id[], category_id[], service_id[], service_time[], employee_id[]}
 router.post('/checkout', function (req, res) {
-    var branch_id = req.body.branch_id;
+    var user_id = req.body.user_id;
+    var order_detail = req.body.order_detail;
+
     var order = new Order();
-    res.send(branch_id[0]);
+    order.user_id = user_id;
+    order.status = 1;
+    order.save(function (err, insertedOrder) {
+        if (err) {
+            console.log('Error in add service' + err);
+        } else {
+            order_detail.forEach(function (orderDetail, index, arr) {
+                res.json(orderDetail);
+                var od = new OrderDetails();
+                od.order_id = insertedOrder.order_id;
+                od.branch_id = orderDetail['branch_id'];
+                od.category_id = orderDetail['category_id'];
+                od.service_id = orderDetail['service_id'];
+                od.employee_id = orderDetail['employee_id'];
+                od.service_price = orderDetail['service_price'];
+                od.service_time = orderDetail['service_time'];
+            })
+            res.json({'status': 200, 'message': 'service inserted!'});
+        }
+    });
 
 
 });
