@@ -8,6 +8,7 @@ const api = require('./server/routes/api');
 const branch = require('./server/routes/branch');
 var service = require('./server/routes/service');
 const category = require('./server/routes/category');
+const promocode = require('./server/routes/promocode');
 
 
 
@@ -25,6 +26,7 @@ app.use('/api', api);
 app.use('/api/branch', branch);
 app.use('/api/service', service);
 app.use('/api/category', category);
+app.use('/api/promocode', promocode);
 
 
 

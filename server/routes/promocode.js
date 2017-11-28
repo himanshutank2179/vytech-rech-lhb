@@ -4,7 +4,7 @@ const config = require('../../config');
 const Service = require('../models/Service');
 const router = express.Router();
 const jsonwebtoken = require('jsonwebtoken');
-const Category = require('../models/Category');
+const Promocode = require('../models/Promocodes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database, function (err) {
@@ -15,7 +15,7 @@ mongoose.connect(config.database, function (err) {
     }
 });
 router.get('/', function (req, res) {
-    res.send('api work on service route');
+    res.send('api work on promocode route');
 });
 
 //Creating Middleware for token valid or not checkpoint
@@ -44,58 +44,17 @@ router.use(function (req, res, next) {
     }
 });
 
-//GET ALL SERVICES
-//parameter {category_id,branch_id}
-router.post('/get-services', function (req, res) {
-    Service.find({
-        category_id: req.body.category_id,
-        branch_id: req.body.branch_id
-    }, function (err, services) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-        res.json(services);
-    });
-});
-
-//GET SINGLE SERVICE
+//GET ALL PROMO CODES
 //parameter {service_id}
-router.get('/get-service', function (req, res) {
-    Service.find({
-        service_id: req.body.service_id
-    }, function (err, service) {
+router.post('/promocodes', function (req, res) {
+    Promocode.find({
+        service_id: req.body.service_id,
+    }, function (err, promocodes) {
         if (err) {
             res.send(err);
             return;
         }
-        res.json(service);
-    });
-});
-
-
-//ADD BRANCH WS
-// parameter{name, image, price,interval_time,duration,branch_id,category_id}
-router.post('/add-service', function (req, res) {
-    console.log('@add-service');
-
-
-    var service = new Service();
-
-    service.name = req.body.name;
-    service.image = req.body.image;
-    service.price = req.body.price;
-    service.interval_time = req.body.interval_time;
-    service.duration = req.body.duration;
-    service.branch_id = req.body.branch_id;
-    service.category_id = req.body.category_id;
-
-    service.save(function (err, insertedService) {
-        if (err) {
-            console.log('Error in add service' + err);
-        } else {
-            res.json({'status': 200, 'message': 'service inserted!'});
-        }
+        res.json(promocodes);
     });
 });
 
