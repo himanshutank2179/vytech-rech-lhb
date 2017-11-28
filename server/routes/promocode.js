@@ -46,9 +46,9 @@ router.use(function (req, res, next) {
 
 //GET ALL PROMO CODES
 //parameter {service_id}
-router.get('/promocodes', function (req, res) {
-    const service_id = req.params.service_id || req.param('service_id') || req.body.service_id;
-    console.log(service_id);
+router.post('/promocodes', function (req, res) {
+    const service_id = req.params.service_id || req.body.service_id;
+    console.log('thissssss '+service_id);
     Promocode.find({
         service_id: service_id,
     }, function (err, promocodes) {
