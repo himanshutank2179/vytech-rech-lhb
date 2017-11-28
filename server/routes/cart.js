@@ -107,3 +107,17 @@ router.delete('/remove-item/:cart_id', function (req, res, next) {
         });
     });
 });
+
+//EMPTY CART
+
+router.delete('/cart-empty/:user_id', function (req, res, next) {
+    Cart.remove({user_id: req.params.user_id}, function (err) {
+        if (err) {
+            res.json({status: 400, message: 'Error processing request ' + err});
+        }
+        res.json({
+            status: 200,
+            message: 'all items removed successfully'
+        });
+    });
+});
