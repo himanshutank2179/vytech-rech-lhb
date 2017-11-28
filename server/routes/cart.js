@@ -46,18 +46,22 @@ router.use(function (req, res, next) {
 ////////////////////////////////
 router.get('/cart-items/:user_id', function (req, res) {
     var user_id = req.params.user_id || req.param('user_id');
-    Cart.find({
-        user_id: user_id
-    }, function (err, items) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-        res.json({
-            status: 200,
-            date: items
+    if (!user_id) {
+        return res.send({status: 404, message: 'Posted data is not correct or incompleted.'});
+    } else {
+        Cart.find({
+            user_id: user_id
+        }, function (err, items) {
+            if (err) {
+                res.send(err);
+                return;
+            }
+            res.json({
+                status: 200,
+                date: items
+            });
         });
-    });
+    }
 });
 
 /////////////////////////////////
@@ -74,7 +78,7 @@ router.post('/add-to-cart', function (req, res) {
     const price = req.body.price;
 
     if (!uid || !service_id || !price) {
-        return res.send({ status: 404, message: 'Posted data is not correct or incompleted.' });
+        return res.send({status: 404, message: 'Posted data is not correct or incompleted.'});
     } else {
         cart.user_id = uid;
         cart.service_id = service_id;
@@ -87,7 +91,6 @@ router.post('/add-to-cart', function (req, res) {
             }
         });
     }
-
 
 
 });
