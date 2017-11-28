@@ -97,7 +97,7 @@ router.post('/add-to-cart', function (req, res) {
 
 //REMOVE FROM CART
 router.delete('/remove-item/:cart_id', function (req, res, next) {
-    Cart.remove({_id: req.params.id}, function (err) {
+    Cart.remove({_id: req.params.cart_id}, function (err) {
         if (err) {
             res.json({status: 400, message: 'Error processing request ' + err});
         }
