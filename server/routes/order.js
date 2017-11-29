@@ -69,12 +69,10 @@ router.post('/checkout', function (req, res) {
                         res.json({'status': 500, 'message': 'error in storing order details.'});
                     }
                 });
-            })
+            });
             res.json({'status': 200, 'message': 'Order inserted successfully!'});
         }
     });
-
-
 });
 
 
