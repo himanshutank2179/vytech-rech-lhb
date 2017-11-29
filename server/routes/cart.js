@@ -77,7 +77,7 @@ router.get('/cart-items/:user_id', function (req, res) {
         Cart.find({user_id: user_id}).then(function(items) {
             var items_array = [];
 
-            items.forEach(function(u) {
+            items.forEach(function(item) {
                 d['services'] = Service.find({_id: item.service_id});
                 items_array.push(d);
             }).then(function(listOfJobs) {
