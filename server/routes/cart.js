@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const config = require('../../config');
 const jsonwebtoken = require('jsonwebtoken');
 const Cart = require('../models/Cart');
+const Service = require('../models/Service');
+mongoose.Promise = require('bluebird');
 
 mongoose.Promise = global.Promise;
 
@@ -49,7 +51,7 @@ router.get('/cart-items/:user_id', function (req, res) {
     if (!user_id) {
         return res.send({status: 404, message: 'Posted data is not correct or incompleted.'});
     } else {
-        Cart.find({
+        /*Cart.find({
             user_id: user_id
         })
             .populate('services')
@@ -59,11 +61,43 @@ router.get('/cart-items/:user_id', function (req, res) {
                 res.send(err);
                 return;
             }
+
+               const items_arr =  items.forEach(function (item) {
+                   Service.findOne({_id: item.service_id}, function(err,obj) { return obj; });
+                   Service.findOne({_id: item.service_id}, function(err,obj) { return obj; });
+                });
             res.json({
                 status: 200,
-                date: items
+                date: items_arr
             });
-        });
+        });*/
+
+
+
+        Cart.find({user_id: user_id}).then(function(items) {
+            var items_array = [];
+
+            items.forEach(function(u) {
+                d['services'] = Service.find({_id: item.service_id});
+                items_array.push(d);
+            }).then(function(listOfJobs) {
+                res.send(listOfJobs);
+            }).catch(function(error) {
+                res.status(500).send('one of the queries failed', error);
+            });
+
+            return Promise.all(items_array );
+        })
+
+
+
+
+
+
+
+
+
+
     }
 });
 
