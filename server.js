@@ -42,7 +42,7 @@ app.get('*', function (req, res) {
 
 app.listen(port, function (err) {
     if (err) {
-        console.error('Error in connect to db ' + err);
+        console.error('Error in connect to db make sure mongodb is running' + err);
     }
     console.log('server running on port: ' + port);
 });
