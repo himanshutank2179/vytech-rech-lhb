@@ -51,7 +51,10 @@ router.get('/cart-items/:user_id', function (req, res) {
     } else {
         Cart.find({
             user_id: user_id
-        }, function (err, items) {
+        })
+            .populate('services')
+            .exec(function (err, items) {
+
             if (err) {
                 res.send(err);
                 return;
