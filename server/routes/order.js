@@ -64,8 +64,13 @@ router.post('/checkout', function (req, res) {
                 od.employee_id = orderDetail['employee_id'];
                 od.service_price = orderDetail['service_price'];
                 od.service_time = orderDetail['service_time'];
+                od.save(function (err, insertedOd) {
+                    if (err) {
+                        res.json({'status': 500, 'message': 'error in storing order details.'});
+                    }
+                });
             })
-            res.json({'status': 200, 'message': 'service inserted!'});
+            res.json({'status': 200, 'message': 'Order inserted successfully!'});
         }
     });
 
