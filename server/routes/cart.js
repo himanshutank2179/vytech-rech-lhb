@@ -59,11 +59,13 @@ router.get('/cart-items/:user_id', function (req, res) {
                 }
                var items_array = [];
                 items.forEach(function (item) {
-                    items_array.push('ok working');
+                    d['services'] = 'okokok working';
+                    d['items'] = item;
+                    items_array.push(d);
                 });
                 res.json({
                     status: 200,
-                    date: items
+                    date: items_array
                 });
             });
 
