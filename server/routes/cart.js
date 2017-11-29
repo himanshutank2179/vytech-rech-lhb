@@ -5,7 +5,6 @@ const config = require('../../config');
 const jsonwebtoken = require('jsonwebtoken');
 const Cart = require('../models/Cart');
 const Service = require('../models/Service');
-mongoose.Promise = require('bluebird');
 
 mongoose.Promise = global.Promise;
 
@@ -51,51 +50,39 @@ router.get('/cart-items/:user_id', function (req, res) {
     if (!user_id) {
         return res.send({status: 404, message: 'Posted data is not correct or incompleted.'});
     } else {
-        /*Cart.find({
+        Cart.find({
             user_id: user_id
         })
-            .populate('services')
             .exec(function (err, items) {
-
-            if (err) {
-                res.send(err);
-                return;
-            }
-
-               const items_arr =  items.forEach(function (item) {
-                   Service.findOne({_id: item.service_id}, function(err,obj) { return obj; });
-                   Service.findOne({_id: item.service_id}, function(err,obj) { return obj; });
+                if (err) {
+                    res.send(err);
+                    return;
+                }
+                var items_array = [];
+                items.forEach(function (item) {
+                    items_array.push(Service.find({_id: item.service_id}));
                 });
-            res.json({
-                status: 200,
-                date: items_arr
-            });
-        });*/
-
-
-
-        Cart.find({user_id: user_id}).then(function(items) {
-            var items_array = [];
-
-            items.forEach(function(item) {
-
-                items_array.push(Service.find({_id: item.service_id}));
-            }).then(function(listOfJobs) {
-                res.send(listOfJobs);
-            }).catch(function(error) {
-                res.status(500).send('one of the queries failed', error);
+                res.json({
+                    status: 200,
+                    date: items_array
+                });
             });
 
-            return Promise.all(items_array );
-        })
 
+        /*  Cart.find({user_id: user_id}).then(function(items) {
+              var items_array = [];
 
+              items.forEach(function(item) {
 
+                  items_array.push(Service.find({_id: item.service_id}));
+              }).then(function(listOfJobs) {
+                  res.send(listOfJobs);
+              }).catch(function(error) {
+                  res.status(500).send('one of the queries failed', error);
+              });
 
-
-
-
-
+              return Promise.all(items_array );
+          })*/
 
 
     }
