@@ -72,7 +72,6 @@ router.get('/cart-items/:user_id', function (req, res) {
 
 
 
-
     }
 });
 
