@@ -53,23 +53,24 @@ router.get('/cart-items/:user_id', function (req, res) {
         Cart.find({
             user_id: user_id
         }).exec(function (err, items) {
-                if (err) {
-                    res.send(err);
-                    return;
-                }
-               var items_array = [];
-                items.forEach(function (item) {
+            if (err) {
+                res.send(err);
+                return;
+            }
+            var items_array = [];
+            items.forEach(function (item) {
 
-                    items_array.push('this is service');
-                });
-                items['services'] = items_array;
-                res.json({
-                    status: 200,
-                    date: items
-                });
+                items_array.push(Service.findOne({_id: item.service_id}, function (err, obj) {
+                    return obj;
+                }));
             });
-
-
+            items['services'] = items_array;
+            res.json({
+                status: 200,
+                date: items,
+                services: items_array
+            });
+        });
 
 
     }
