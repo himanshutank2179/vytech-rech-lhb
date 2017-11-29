@@ -60,11 +60,12 @@ router.get('/cart-items/:user_id', function (req, res) {
                var items_array = [];
                 items.forEach(function (item) {
 
-                    items_array.push('okokok working');
+                    items_array.push('this is service');
                 });
+                items['services'] = items_array;
                 res.json({
                     status: 200,
-                    date: items_array
+                    date: items
                 });
             });
 
