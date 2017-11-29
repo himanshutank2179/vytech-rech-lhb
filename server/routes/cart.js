@@ -59,9 +59,8 @@ router.get('/cart-items/:user_id', function (req, res) {
                 }
                var items_array = [];
                 items.forEach(function (item) {
-                    d['services'] = 'okokok working';
-                    d['items'] = item;
-                    items_array.push(d);
+
+                    items_array.push('okokok working');
                 });
                 res.json({
                     status: 200,
