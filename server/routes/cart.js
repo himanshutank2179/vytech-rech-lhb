@@ -60,7 +60,7 @@ router.get('/cart-items/:user_id', function (req, res) {
                 }
                 var items_array = [];
                 items.forEach(function (item) {
-                    items_array.push(Service.find({_id: item.service_id}));
+                    items_array.push(Service.findOne({_id: item.service_id}, function(obj) { return obj }));
                 });
                 res.json({
                     status: 200,
@@ -69,20 +69,7 @@ router.get('/cart-items/:user_id', function (req, res) {
             });
 
 
-        /*  Cart.find({user_id: user_id}).then(function(items) {
-              var items_array = [];
 
-              items.forEach(function(item) {
-
-                  items_array.push(Service.find({_id: item.service_id}));
-              }).then(function(listOfJobs) {
-                  res.send(listOfJobs);
-              }).catch(function(error) {
-                  res.status(500).send('one of the queries failed', error);
-              });
-
-              return Promise.all(items_array );
-          })*/
 
 
     }
