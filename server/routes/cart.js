@@ -57,10 +57,10 @@ router.get('/cart-items/:user_id', function (req, res) {
                     res.send(err);
                     return;
                 }
-               /* var items_array = [];
+               var items_array = [];
                 items.forEach(function (item) {
-                    items_array.push(Service.findOne({_id: item.service_id}, function(obj) { return obj }));
-                });*/
+                    items_array.push('ok working');
+                });
                 res.json({
                     status: 200,
                     date: items
