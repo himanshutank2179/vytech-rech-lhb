@@ -26,7 +26,7 @@ module.exports = {
     },*/
     view: async (req, res, next) => {
         const user_id = req.params.user_id || req.param('user_id');
-        const cartItems = await Cart.find({_id: user_id}).populate('services');
+        const cartItems = await Cart.find({user_id: user_id}).populate('services');
         res.json({status: 200, data: cartItems});
     },
     /*delete: async (req, res, next) => {
