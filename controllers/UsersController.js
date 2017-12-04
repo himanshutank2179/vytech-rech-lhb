@@ -29,7 +29,7 @@ module.exports = {
     newUser: async (req, res, next) => {
         const branchId = req.body.branch_id;
         var newUser = new User(req.body);
-        if(!branchId.empty()){
+        if(branchId){
             const branch = await Branch.findById({_id: branchId});
             newUser.branch = branch;
         }
