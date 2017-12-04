@@ -18,8 +18,8 @@ const branch = require('./server/routes/branch');
 const category = require('./server/routes/category');
 var service = require('./server/routes/service');
 var cart = require('./server/routes/cart');
-/*const promocode = require('./server/routes/promocode');
-const cart = require('./server/routes/cart');
+const promocode = require('./server/routes/promocode');
+/*const cart = require('./server/routes/cart');
 const order = require('./server/routes/order');*/
 
 //Middleware
@@ -35,8 +35,8 @@ app.use('/api', branch);
 app.use('/api', category);
 app.use('/api', service);
 app.use('/api', cart);
-/*app.use('/api/promocode', promocode);
-app.use('/api/order', order);*/
+app.use('/api', promocode);
+/*app.use('/api/order', order);*/
 
 
 //Catch 404 Errors and forword then to error handler function

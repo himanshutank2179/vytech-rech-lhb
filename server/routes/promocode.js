@@ -1,25 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const config = require('../../config');
-const Service = require('../models/Service');
-const router = express.Router();
-const jsonwebtoken = require('jsonwebtoken');
+/*const router = express.Router();*/
+const router = require('express-promise-router')();
+
 const Promocode = require('../models/Promocodes');
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database, function (err) {
-    if (err) {
-        console.error(' Error in connect to db! ' + err);
-    } else {
-        console.log('connected to the database');
-    }
-});
-router.get('/', function (req, res) {
-    res.send('api work on promocode route');
-});
+const PromocodeController = require('../../controllers/PromocodeController');
+
+
+
 
 //Creating Middleware for token valid or not checkpoint
-router.use(function (req, res, next) {
+/*router.use(function (req, res, next) {
     console.log('somebody just come to our app!');
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
@@ -42,11 +33,11 @@ router.use(function (req, res, next) {
             message: 'no token provided'
         });
     }
-});
+});*/
 
 //GET ALL PROMO CODES
 //parameter {service_id}
-router.get('/promocodes/:service_id', function (req, res) {
+/*router.get('/promocodes/:service_id', function (req, res) {
     var service_id = req.params.service_id || req.param('service_id');
     Promocode.find({
         service_id: service_id,
@@ -60,7 +51,26 @@ router.get('/promocodes/:service_id', function (req, res) {
             date: promocodes
         });
     });
-});
+});*/
+
+
+
+
+///////// routes starts from here ////////////////////
+
+router.route('/promocodes/create')
+    .post(PromocodeController.create);
+
+router.route('/promocodes').get(PromocodeController.index) // will get all branches
+
+router.route('/promocodes/:branch_id')
+    .get(PromocodeController.view) // will get single branch obj based on id
+    .patch(PromocodeController.update) // will update that particuler record/document based on id
+    .delete(PromocodeController.delete); // will delete that perticular record/document based o
+
+router.route('/promocodes/:user_id')
+    .get(PromocodeController.getUserPromocode);
+
 
 
 module.exports = router;
