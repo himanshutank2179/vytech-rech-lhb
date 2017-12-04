@@ -38,7 +38,10 @@ module.exports = {
     //parameter {category_id,branch_id}
     getServiceByCatAndBranch: async (req, res, next) => {
         const {category_id, branch_id} = req.params;
-        const service = await Service.find({category:category_id,branch:branch_id}).populate('branch category');
+        console.log(category_id);
+        console.log(branch_id);
+        const service = await Service.find({category:category_id,branch:branch_id});
+        console.log(service);
         res.json({status: 200, data: service});
     },
 
