@@ -1,23 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const config = require('../../config');
-const jsonwebtoken = require('jsonwebtoken');
-const Cart = require('../models/Cart');
-const Service = require('../models/Service');
+/*const express = require('express');
+const router = express.Router();*/
+const router = require('express-promise-router')();
+//Importing controllers
+const CartController = require('../../controllers/CartController');
 
-mongoose.Promise = global.Promise;
 
-mongoose.connect(config.database, function (err) {
-    if (err) {
-        console.error(' Error in connect to db! ' + err);
-    } else {
-        console.log('connected to the database');
-    }
-});
 
 //Creating Middleware for token valid or not checkpoint
-router.use(function (req, res, next) {
+/*router.use(function (req, res, next) {
     console.log('somebody just come to our app!');
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
@@ -40,12 +30,12 @@ router.use(function (req, res, next) {
             message: 'no token provided'
         });
     }
-});
+});*/
 
 /////////////////////////////////
 ////// GET ALL CART ITEMS BY user_id
 ////////////////////////////////
-router.get('/cart-items/:user_id', function (req, res) {
+/*router.get('/cart-items/:user_id', function (req, res) {
     var user_id = req.params.user_id || req.param('user_id');
     if (!user_id) {
         return res.send({status: 404, message: 'Posted data is not correct or incompleted.'});
@@ -57,33 +47,42 @@ router.get('/cart-items/:user_id', function (req, res) {
                 res.send(err);
                 return;
             }
-            var items_array = [];
-            items.forEach(function (item) {
 
-                items_array.push(Service.findOne({_id: item.service_id}, function (err, obj) {
-                    return obj;
-                }));
+            var service_array = [];
+            items.forEach(function (item) {
+                Service.findOne({_id: item.service_id},function (err, obj) {
+
+                });
+
+
+                //items_array.push(service);
             });
-            items['services'] = items_array;
+
+
+
+            console.log(service_array);
+
             res.json({
                 status: 200,
-                date: items,
-                services: items_array
+               // date: service_array,
+
             });
+
+
         });
 
 
     }
-});
+});*/
 
 /////////////////////////////////
 ////// ADD TO CART WS /////////////////
 ////////////////////////////////
 
-module.exports = router;
+
 
 //ADD TO CART WS
-router.post('/add-to-cart', function (req, res) {
+/*router.post('/add-to-cart', function (req, res) {
     var cart = new Cart();
     const uid = req.body.user_id;
     const service_id = req.body.service_id;
@@ -105,10 +104,10 @@ router.post('/add-to-cart', function (req, res) {
     }
 
 
-});
+});*/
 
 //REMOVE FROM CART
-router.delete('/remove-item/:cart_id', function (req, res, next) {
+/*router.delete('/remove-item/:cart_id', function (req, res, next) {
     Cart.remove({_id: req.params.cart_id}, function (err) {
         if (err) {
             res.json({status: 400, message: 'Error processing request ' + err});
@@ -118,11 +117,11 @@ router.delete('/remove-item/:cart_id', function (req, res, next) {
             message: 'Item removed successfully'
         });
     });
-});
+});*/
 
 //EMPTY CART
 
-router.delete('/cart-empty/:user_id', function (req, res, next) {
+/*router.delete('/cart-empty/:user_id', function (req, res, next) {
     Cart.remove({user_id: req.params.user_id}, function (err) {
         if (err) {
             res.json({status: 400, message: 'Error processing request ' + err});
@@ -132,4 +131,21 @@ router.delete('/cart-empty/:user_id', function (req, res, next) {
             message: 'all items removed successfully'
         });
     });
-});
+});*/
+
+
+
+
+
+
+//add to cart
+router.route('/cart/add-to-cart').post(CartController.create);
+//get cart by user_id
+router.route('/cart-items/:user_id').get(CartController.view);
+
+
+
+
+
+
+module.exports = router;

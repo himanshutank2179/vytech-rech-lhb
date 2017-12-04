@@ -1,25 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const config = require('../../config');
+// const router = express.Router();
+const router = require('express-promise-router')();
 const Branch = require('../models/Branch');
-const jsonwebtoken = require('jsonwebtoken');
+//Importing controllers
+const BranchController = require('../../controllers/BranchController');
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database, function (err) {
-    if (err) {
-        console.error(' Error in connect to db! ' + err);
-    } else {
-        console.log('connected to the database');
-    }
-});
-
-router.get('/', function (req, res) {
-    res.send('api work on branch route');
-});
 
 //Creating Middleware for token valid or not checkpoint
-router.use(function (req, res, next) {
+/*router.use(function (req, res, next) {
     console.log('somebody just come to our app!');
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
@@ -42,35 +30,20 @@ router.use(function (req, res, next) {
             message: 'no token provided'
         });
     }
-});
+});*/
 
-/////////////////////////////////
-////// ADD BRANCH WS ////////////
-////////////////////////////////
+//////////////////////////////// Branches Routes starts from here ////////////////
 
-//ADD BRANCH WS
-router.post('/add-branch', function (req, res) {
-    console.log('@add-branch');
-    var branch = new Branch();
-    branch.name = req.body.name;
 
-    branch.save(function (err, insertedBranch) {
-        if (err) {
-            console.log('Error in add branch');
-        } else {
-            res.json({'status': 200, 'message': 'branch inserted!'});
-        }
-    });
-});
+router.route('/branch/create')
+    .post(BranchController.create);
 
-router.get('/branches', function (req, res) {
-    Branch.find({}, function (err, branches) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-        res.json(branches);
-    });
-});
+router.route('/branch').get(BranchController.index) // will get all branches
+
+router.route('/branch/:branch_id')
+    .get(BranchController.view) // will get single branch obj based on id
+    .patch(BranchController.update) // will update that particuler record/document based on id
+    .delete(BranchController.delete); // will delete that perticular record/document based on id
+
 
 module.exports = router;

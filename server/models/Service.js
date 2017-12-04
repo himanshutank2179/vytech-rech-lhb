@@ -7,10 +7,10 @@ const serviceSchema = new Schema({
     price: {type: Number, required: true},
     duration: {type: Number, required: true},
     interval_time: {type: Number, required: true},
-    branch_id: {type: String, require: true},
-    category_id: {type: String, require: true}
-    // branch_id: [{type: Schema.Types.ObjectId, ref: 'branches'}],
-    // category_id: [{type: Schema.Types.ObjectId, ref: 'categories'}],
+    //branch_id: {type: String, require: true},
+    //category_id: {type: String, require: true}
+    branch: {type: Schema.Types.ObjectId, ref: 'branch'},
+    category: {type: Schema.Types.ObjectId, ref: 'category'},
 }, {
     timestamp: true
 });
