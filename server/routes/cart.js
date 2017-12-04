@@ -141,7 +141,10 @@ const CartController = require('../../controllers/CartController');
 //add to cart
 router.route('/cart/add-to-cart').post(CartController.create);
 //get cart by user_id
+
 router.route('/cart-items/:user_id').get(CartController.view);
+
+router.route('/cart-empty/:user_id').delete(CartController.empty_cart);
 
 
 

@@ -34,6 +34,13 @@ module.exports = {
         const result = await Branch.findByIdAndRemove(branch_id);
         res.json({status: 200, message: 'branch deleted success.'});
     }*/
+    empty_cart: async (req, res, next) =>{
+        const result = await Cart.remove({user_id: req.params.user_id});
+        res.json({
+            status: 200,
+            message: 'all items removed successfully'
+        });
+    }
 
 };
 
