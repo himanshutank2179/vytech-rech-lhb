@@ -29,8 +29,11 @@ module.exports = {
     newUser: async (req, res, next) => {
         const branchId = req.body.branch_id;
         var newUser = new User(req.body);
-        const branch = await Branch.findById({_id: branchId});
-        newUser.branch = branch;
+        if(!branchId.empty()){
+            const branch = await Branch.findById({_id: branchId});
+            newUser.branch = branch;
+        }
+
         const user = await newUser.save();
         res.status(200).json({status: 200, data: user});
     },
