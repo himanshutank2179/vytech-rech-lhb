@@ -14,7 +14,7 @@ const userSchema = new Schema({
         user_type: {type: Number}, /* 1 = super admin, 2 = admin, 3 = emp, 4 = user   */
         //branch_id: {type: String, require: true}
         branch: {type: Schema.Types.ObjectId, ref: 'branch'},
-        pro_codes:[{type: mongoose.Schema.Types.ObjectId, ref: 'promocodes'}]
+        promocodes:[{type: mongoose.Schema.Types.ObjectId, ref: 'promocode'}]
 
     },
     {

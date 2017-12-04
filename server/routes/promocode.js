@@ -2,7 +2,7 @@ const express = require('express');
 /*const router = express.Router();*/
 const router = require('express-promise-router')();
 
-const Promocode = require('../models/Promocodes');
+const Promocode = require('../models/Promocode');
 
 const PromocodeController = require('../../controllers/PromocodeController');
 
@@ -68,7 +68,7 @@ router.route('/promocodes/:branch_id')
     .patch(PromocodeController.update) // will update that particuler record/document based on id
     .delete(PromocodeController.delete); // will delete that perticular record/document based o
 
-router.route('/promocodes/:user_id')
+router.route('/promocodes/user/:user_id')
     .get(PromocodeController.getUserPromocode);
 
 
