@@ -9,8 +9,8 @@ const serviceSchema = new Schema({
     interval_time: {type: Number, required: true},
     //branch_id: {type: String, require: true},
     //category_id: {type: String, require: true}
-    branch: {type: Schema.Types.ObjectId, ref: 'branch'},
-    category: {type: Schema.Types.ObjectId, ref: 'category'},
+    branch: {type: Schema.Types.ObjectId, ref: 'Branch'},
+    category: {type: Schema.Types.ObjectId, ref: 'Category'},
 }, {
     timestamp: true
 });
