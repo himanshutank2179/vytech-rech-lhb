@@ -29,11 +29,11 @@ module.exports = {
         const cartItems = await Cart.find({user: user_id}).populate('services');
         res.json({status: 200, data: cartItems});
     },
-    /*delete: async (req, res, next) => {
-        const {branch_id} = req.params;
-        const result = await Branch.findByIdAndRemove(branch_id);
-        res.json({status: 200, message: 'branch deleted success.'});
-    }*/
+    delete: async (req, res, next) => {
+        const {cart_id} = req.params;
+        const result = await Branch.findByIdAndRemove(cart_id);
+        res.json({status: 200, message: 'cart item deleted success.'});
+    },
     empty_cart: async (req, res, next) =>{
         const result = await Cart.remove({user_id: req.params.user_id});
         res.json({
