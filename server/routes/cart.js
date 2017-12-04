@@ -146,7 +146,7 @@ router.route('/cart-items/:user_id').get(CartController.view);
 
 router.route('/cart-empty/:user_id').delete(CartController.empty_cart);
 
-router.route('/cart-empty/:cart_id').delete(CartController.delete);
+router.route('/cart/:cart_id').delete(CartController.delete);
 
 
 
