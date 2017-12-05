@@ -51,7 +51,7 @@ router.route('/service/:service_id')
 
 
 // get Service By Category And Branch for mobile app
-router.route('/services/:category').get(ServiceController.getServiceByCategory);
+router.route('/get-all-services/:category_id').get(ServiceController.getServiceByCategory);
 
 
 module.exports = router;
