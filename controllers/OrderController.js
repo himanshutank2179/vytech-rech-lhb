@@ -51,13 +51,15 @@ module.exports = {
                 od.employee = emp;
                 od.service_price = orderDetail['service_price'];
                 const res = await od.save();
-                if(res){
+                if (res) {
                     /*remove all items from cart ofter order placed*/
                     await Cart.remove({user: req.params.user_id});
                 }
 
             });
         }
+
+        res.json({status: 200, message: 'order placed success.', data: result});
 
     },
     index: async (req, res, next) => {
