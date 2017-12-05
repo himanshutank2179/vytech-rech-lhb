@@ -35,13 +35,10 @@ module.exports = {
         const result = await Service.findByIdAndRemove(service_id);
         res.json({status: 200, message: 'service deleted success.'});
     },
-    //parameter {category_id,branch_id}
-    getServiceByCatAndBranch: async (req, res, next) => {
-        const {category_id, branch_id} = req.params;
-        console.log(category_id);
-        console.log(branch_id);
-        const service = await Service.find({category:category_id,branch:branch_id});
-        console.log(service);
+    //parameter {category_id}
+    getServiceByCategory: async (req, res, next) => {
+        const category_id = req.params.category_id;
+        const service = await Service.find({category:category_id});
         res.json({status: 200, data: service});
     },
 
