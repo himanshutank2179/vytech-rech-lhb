@@ -23,7 +23,7 @@ module.exports = {
         newOrder.user = user;
         var result = await newOrder.save();
         if (result) {
-            order_detail.forEach(async (orderDetail, index, arr) => {
+            order_details.forEach(async (orderDetail, index, arr) => {
 
 
                 /*get branch*/
