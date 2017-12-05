@@ -10,12 +10,14 @@ module.exports = {
 
     create: async (req, res, next) => {
         const user_id = req.params.user_id;
+        const appointment_time = req.body.appointment_time;
         const order_detail = req.body.order_detail;
 
         /*storing order*/
 
         var newOrder = new Order();
         newOrder.status = 1;
+        newOrder.appointment_time = appointment_time;
         /*get user info from db*/
         const user = await User.findById(user_id);
         newOrder.user = user;
@@ -48,7 +50,6 @@ module.exports = {
                 od.service = service;
                 od.employee = emp;
                 od.service_price = orderDetail['service_price'];
-                od.service_time = orderDetail['service_time'];
                 const res = await od.save();
                 if(res){
                     /*remove all items from cart ofter order placed*/
