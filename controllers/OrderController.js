@@ -23,8 +23,7 @@ module.exports = {
         newOrder.user = user;
         var result = await newOrder.save();
         if (result) {
-            order_details.forEach(async (orderDetail, index, arr) => {
-
+            order_details.forEach(async (orderDetail) => {
 
                 /*get branch*/
                 const branch = await Branch.findById(orderDetail['branch_id']);
@@ -40,7 +39,7 @@ module.exports = {
 
                 /*get employee*/
                 const emp = await User.findById(orderDetail['employee_id']);
-                console(emp);
+
 
                 /*get obj of Order OrderDetails*/
                 var od = new OrderDetails();
