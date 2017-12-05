@@ -50,7 +50,7 @@ router.route('/service/:service_id')
     .delete(ServiceController.delete); // will delete that perticular record/document based on id
 
 // get Service By Category And Branch for mobile app
-router.route('/service/:category_id').get(ServiceController.getServiceByCategory);
+router.route('/service/:category').get(ServiceController.getServiceByCategory);
 
 
 module.exports = router;
