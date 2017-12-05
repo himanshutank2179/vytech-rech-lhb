@@ -11,7 +11,7 @@ module.exports = {
     create: async (req, res, next) => {
         const user_id = req.params.user_id;
         const appointment_time = req.body.appointment_time;
-        const order_detail = req.body.order_detail;
+        const order_details = req.body.order_details;
 
         /*storing order*/
 
