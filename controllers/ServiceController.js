@@ -37,7 +37,7 @@ module.exports = {
     },
     //parameter {category_id}
     getServiceByCategory: async (req, res, next) => {
-        const category_id = req.params.category_id;
+        const {category_id} = req.params;
         const service = await Service.find({category:category_id});
         res.json({status: 200, data: service});
     },
