@@ -69,7 +69,7 @@ const OrderController = require('../../controllers/OrderController');
 
 
 /*Routing start from here*/
-router.route('/order/create')
+router.route('/order/checkout')
     .post(OrderController.create);
 
 router.route('/service').get(OrderController.index) // will get all branches
