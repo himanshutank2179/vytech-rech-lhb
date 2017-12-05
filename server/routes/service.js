@@ -49,6 +49,7 @@ router.route('/service/:service_id')
     .patch(ServiceController.update) // will update that particuler record/document based on id
     .delete(ServiceController.delete); // will delete that perticular record/document based on id
 
+
 // get Service By Category And Branch for mobile app
 router.route('/services/:category').get(ServiceController.getServiceByCategory);
 
