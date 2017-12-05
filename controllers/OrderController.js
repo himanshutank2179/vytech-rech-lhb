@@ -50,6 +50,10 @@ module.exports = {
                 od.service_price = orderDetail['service_price'];
                 od.service_time = orderDetail['service_time'];
                 const res = await od.save();
+                if(res){
+                    /*remove all items from cart ofter order placed*/
+                    await Cart.remove({user: req.params.user_id});
+                }
 
             });
         }
