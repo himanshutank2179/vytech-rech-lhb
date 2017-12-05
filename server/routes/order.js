@@ -72,9 +72,9 @@ const OrderController = require('../../controllers/OrderController');
 router.route('/order/checkout')
     .post(OrderController.create);
 
-router.route('/service').get(OrderController.index) // will get all branches
+router.route('/order').get(OrderController.index) // will get all branches
 
-router.route('/service/:service_id')
+router.route('/order/:order_id')
     .get(OrderController.view) // will get single service obj based on id
     .patch(OrderController.update) // will update that particuler record/document based on id
     .delete(OrderController.delete); // will delete that perticular record/document based on id
