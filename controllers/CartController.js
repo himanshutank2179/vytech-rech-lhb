@@ -34,6 +34,7 @@ module.exports = {
         const citem = await Cart.findByIdAndRemove(cart_id);
         res.json({status: 200, message: 'cart item deleted success.'});
     },
+
     empty_cart: async (req, res, next) => {
         const result = await Cart.remove({user: req.params.user_id});
         res.json({
