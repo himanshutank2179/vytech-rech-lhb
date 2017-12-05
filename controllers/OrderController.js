@@ -42,6 +42,7 @@ module.exports = {
 
                 /*get obj of Order OrderDetails*/
                 var od = new OrderDetails();
+                od.order = result;
                 od.branch = branch;
                 od.category = category;
                 od.service = service;
