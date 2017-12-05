@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderDetailsSchema = new Schema({
-    order_id: {type: String, require: true},
-    branch_id: {type: String, require: true},
-    category_id: {type: String, require: true},
-    service_id: {type: String, require: true},
-    employee_id: {type: String, require: true},
+    order: { type: mongoose.Schema.Types.ObjectId, ref: 'order'},
+    branch: { type: mongoose.Schema.Types.ObjectId, ref: 'branch'},
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'category'},
+    service: { type: mongoose.Schema.Types.ObjectId, ref: 'service'},
+    employee: { type: mongoose.Schema.Types.ObjectId, ref: 'user'},
     service_price: {type: String, require: true},
-    service_time: {type: String, require: true}
+    appointment_time: {type: Date, require: true}
 }, {
     timestamp: true
 });

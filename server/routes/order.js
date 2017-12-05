@@ -1,22 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const config = require('../../config');
-const router = express.Router();
-const jsonwebtoken = require('jsonwebtoken');
-const Order = require('../models/Order');
-const OrderDetails = require('../models/OrderDetails');
-
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database, function (err) {
-    if (err) {
-        console.error(' Error in connect to db! ' + err);
-    } else {
-        console.log('connected to the database');
-    }
-});
+/*const express = require('express');
+const router = express.Router();*/
+const router = require('express-promise-router')();
+//Importing controllers
+const OrderController = require('../../controllers/OrderController');
 
 //Creating Middleware for token valid or not checkpoint
-router.use(function (req, res, next) {
+/*router.use(function (req, res, next) {
     console.log('somebody just come to our app!');
     var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
@@ -39,11 +28,11 @@ router.use(function (req, res, next) {
             message: 'no token provided'
         });
     }
-});
+});*/
 
 //ADD BRANCH WS
 // parameter{user_id, branch_id[], category_id[], service_id[], service_time[], employee_id[]}
-router.post('/checkout', function (req, res) {
+/*router.post('/checkout', function (req, res) {
     var user_id = req.body.user_id;
     var order_detail = req.body.order_detail;
 
@@ -73,7 +62,30 @@ router.post('/checkout', function (req, res) {
             res.json({'status': 200, 'message': 'Order inserted successfully!'});
         }
     });
-});
+});*/
+
+
+
+
+
+/*Routing start from here*/
+router.route('/order/create')
+    .post(OrderController.create);
+
+router.route('/service').get(OrderController.index) // will get all branches
+
+router.route('/service/:service_id')
+    .get(OrderController.view) // will get single service obj based on id
+    .patch(OrderController.update) // will update that particuler record/document based on id
+    .delete(OrderController.delete); // will delete that perticular record/document based on id
+
+
+
+
+
+
+
+
 
 
 module.exports = router;
