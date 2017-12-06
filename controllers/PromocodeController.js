@@ -42,8 +42,7 @@ module.exports = {
         const user = await User.findById(user_id).populate({ 
      path: 'promocodes',
      populate: {
-       path: 'services',
-       model: 'Service'
+       path: 'services'       
      } 
   });
         res.json({status: 200, data: user.promocodes});
