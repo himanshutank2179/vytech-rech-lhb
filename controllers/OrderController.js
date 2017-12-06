@@ -4,61 +4,32 @@ const User = require('../server/models/User');
 const Branch = require('../server/models/Branch');
 const Category = require('../server/models/Category');
 const Service = require('../server/models/Service');
+const Cart = require('../server/models/Cart');
 
 
 module.exports = {
 
     create: async (req, res, next) => {
         const user_id = req.params.user_id;
-        const appointment_time = req.body.appointment_time;
-        const order_details = req.body.order_details;
+        console.log('user_id is', user_id);
+        console.log(req.body);
+        const newOrder = Order(req.body);
+        const result = await newOrder.save();
+        console.log('newOrder result is...', result);
+        var cartItems = await Cart.find({user: user_id});
+        console.log('cart items is...', cartItems);
+        cartItems.forEach(async (item) => {
+            const service = await Service.findById(item.services);
+            var newOrderDetails = new OrderDetails();
+            newOrderDetails.service = service;
+            newOrderDetails.service_price = item.price;
+            newOrderDetails.order = result;
+            await newOrderDetails.save();
+            await Cart.remove({user: user_id});
 
-        /*storing order*/
+        });
 
-        var newOrder = new Order();
-        newOrder.status = 1;
-        newOrder.appointment_time = appointment_time;
-        /*get user info from db*/
-        const user = await User.findById(user_id);
-        newOrder.user = user;
-        var result = await newOrder.save();
-        if (result) {
-            order_details.forEach(async (orderDetail) => {
-
-                /*get branch*/
-                const branch = await Branch.findById(orderDetail['branch_id']);
-                console.log(branch);
-
-                /*get category*/
-                const category = await Category.findById(orderDetail['category_id']);
-                console.log(category);
-
-                /*get service*/
-                const service = await Service.findById(orderDetail['service_id']);
-                console.log(service);
-
-                /*get employee*/
-                const emp = await User.findById(orderDetail['employee_id']);
-
-
-                /*get obj of Order OrderDetails*/
-                var od = new OrderDetails();
-                od.order = result;
-                od.branch = branch;
-                od.category = category;
-                od.service = service;
-                od.employee = emp;
-                od.service_price = orderDetail['service_price'];
-                const res = await od.save();
-                if (res) {
-                    /*remove all items from cart ofter order placed*/
-                    await Cart.remove({user: req.params.user_id});
-                }
-
-            });
-        }
-
-        res.json({status: 200, message: 'order placed success.', data: result});
+        res.json({status: 200, data: cartItems});
 
     },
     index: async (req, res, next) => {

@@ -4,7 +4,7 @@ const Service = require('../server/models/Service');
 
 module.exports = {
     create: async (req, res, next) => {
-        const {user_id, service_id} = req.body;
+            const {user_id, service_id} = req.body;
         const newCart = new Cart(req.body);
 
         const user = await User.findById(user_id, 'first_name last_name email username phone address createdAt updatedAt');
