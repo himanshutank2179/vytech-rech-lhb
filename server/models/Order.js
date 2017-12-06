@@ -10,7 +10,8 @@ const orderSchema = new Schema({
     cgst: {type: Number},
     sgst: {type: Number},
     status: {type: Number, default: 1}, // 1 = pending, 2 = order placed
-    appointment_time: {type: Date}
+    appointment_time: {type: Date},
+    texable_amount: {type: Number},
 }, {
     timestamp: true
 });

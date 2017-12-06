@@ -38,7 +38,7 @@ module.exports = {
     },
     getUserPromocode: async (req, res, next) => {
         const user_id = req.params.user_id;
-        const user = await User.findById(user_id).populate('promocodes');
+        const user = await User.findById(user_id).populate('promocodes services');
         res.json({status: 200, data: user.promocodes});
 
     }
