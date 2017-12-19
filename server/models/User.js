@@ -11,6 +11,7 @@ const userSchema = new Schema({
         password: String,
         phone: String,
         address: String,
+        profile_pic: String,
         user_type: {type: Number}, /* 1 = super admin, 2 = admin, 3 = emp, 4 = user   */
         //branch_id: {type: String, require: true}
         branch: {type: Schema.Types.ObjectId, ref: 'branch'},
