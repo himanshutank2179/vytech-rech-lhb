@@ -121,7 +121,7 @@ module.exports = {
         console.log(user_id);
         var orders = await Order.find({user:user_id});
         var total_price = orders.forEach(function (order) {
-            total_price = (total_price + order.texable_amount);
+           return total_price = (total_price + order.texable_amount);
         });
         res.json({
             status: 200,
