@@ -31,6 +31,12 @@ module.exports = {
         const user = await User.findOne({_id: user_id});
         res.json({status: 200, data: user});
     },
+    update: async (req, res, next) => {
+        const {user_id} = req.params;
+        const newUser = req.body;
+        const result = await User.findByIdAndUpdate(user_id, newUser);
+        res.json({status: 200, message: 'user updated success.'});
+    },
 
     newUser: async (req, res, next) => {
         const branchId = req.body.branch_id;
