@@ -138,7 +138,7 @@ module.exports = {
         var allOrders = [];
         orders.forEach(async (order) => {
             order_details = await OrderDetails.find({order: order._id});
-            order.push(order_details);
+            order['order_details'] = order_details;
             allOrders.push(order);
         });
         res.json({
