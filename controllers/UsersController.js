@@ -143,7 +143,7 @@ module.exports = {
                 status: 200,
                 data: order_details
             });
-            order['order_details'] = order_details;
+            order['order_details'] = 'fuck';
 
         });
         res.json({
