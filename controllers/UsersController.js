@@ -119,7 +119,10 @@ module.exports = {
     spendMony: async (req, res, next) => {
         const user_id = req.params.user_id;
         console.log(user_id);
-        var total_price = await Order.find({user:user_id});
+        var orders = await Order.find({user:user_id});
+        var total_price = orders.forEach(function (order) {
+            total_price = (total_price + order.texable_amount);
+        });
         res.json({
             status: 200,
             data: total_price,
