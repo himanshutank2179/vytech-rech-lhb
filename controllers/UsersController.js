@@ -136,7 +136,7 @@ module.exports = {
         const user_id = req.params.user_id;
         var orders = await Order.find({user: user_id});
 
-        var newOrdes = orders.forEach(async (order) => {
+        var newOrdes = await orders.forEach(async (order) => {
 
             order_details = await OrderDetails.find({order: order._id});
             res.json({
