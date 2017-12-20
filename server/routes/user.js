@@ -128,6 +128,11 @@ router.route('/users/:user_id')
     .get(UsersController.view)
     .patch(UsersController.update);
 
+router.route('/users/spend-money/:user_id')
+    .get(UsersController.spendMony);
+
+
+
 
 
 

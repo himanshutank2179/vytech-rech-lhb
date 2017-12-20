@@ -1,5 +1,6 @@
 const User = require('../server/models/User');
 const Branch = require('../server/models/Branch');
+const Order = require('../server/models/Order');
 const jsonwebtoken = require('jsonwebtoken');
 var config = require('../config');
 const secretKey = config.secretKey;
@@ -31,6 +32,7 @@ module.exports = {
         const user = await User.findOne({_id: user_id});
         res.json({status: 200, data: user});
     },
+
     update: async (req, res, next) => {
         const {user_id} = req.params;
         const newUser = req.body;
@@ -84,6 +86,7 @@ module.exports = {
         });
 
     },
+
     fbLogin: async (req, res, next) => {
         const email = req.body.email;
         const user = await User.find({email});
@@ -111,5 +114,12 @@ module.exports = {
                 token: token
             });
         }
+    },
+
+    spendMony: async (req, res, next) => {
+        const user_id = req.params.user_id;
+        const orders = await Order.find({user: user_id});
+        console.log(orders);
+
     }
 };
