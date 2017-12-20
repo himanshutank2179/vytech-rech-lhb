@@ -119,20 +119,11 @@ module.exports = {
     spendMony: async (req, res, next) => {
         const user_id = req.params.user_id;
         console.log(user_id);
-        var total_price = await Order.aggregate([
-            { $match: {
-                user: user_id
-            }},
-
-            { $group: {
-                _id: "$_id",
-                total_price: { $sum: "$total" }
-            }}
-        ]);
+        var total_price = await Order.find({user:user_id});
         res.json({
             status: 200,
             data: total_price,
-            user:user_id
+
         });
     }
 };
