@@ -26,6 +26,12 @@ module.exports = {
         });
     },
 
+    view: async (req, res, next) => {
+        const user_id = req.params.user_id;
+        const user = await User.findOne({_id: user_id});
+        res.json({status: 200, data: user});
+    },
+
     newUser: async (req, res, next) => {
         const branchId = req.body.branch_id;
         var newUser = new User(req.body);
