@@ -126,7 +126,7 @@ module.exports = {
 
             { $group: {
                 _id: "$_id",
-                total: { $sum: "$total" }
+                total_price: { $sum: "$total" }
             }}
         ]);
         res.json({
