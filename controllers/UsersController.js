@@ -120,9 +120,9 @@ module.exports = {
         const user_id = req.params.user_id;
         console.log(user_id);
         var orders = await Order.find({user:user_id});
-        var total_price = [];
-        const tp =  orders.forEach(function (order) {
-            total_price.push(order.texable_amount);
+        var total_price = 0;
+        orders.forEach(function (order) {
+            total_price += order.texable_amount;
 
         });
         res.json({
