@@ -127,6 +127,7 @@ module.exports = {
         res.json({
             status: 200,
             data: total_price,
+            fuck: 'land kho gaya',
 
         });
     }
