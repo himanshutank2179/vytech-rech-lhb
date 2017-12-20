@@ -11,13 +11,14 @@ module.exports = {
 
     create: async (req, res, next) => {
         const user_id = req.params.user_id;
-        console.log('user_id is', user_id);
-        console.log(req.body);
-        const newOrder = Order(req.body);
+
+
+        var newOrder = Order(req.body);
+        newOrder.user = user_id;
         const result = await newOrder.save();
-        console.log('newOrder result is...', result);
+
         var cartItems = await Cart.find({user: user_id});
-        console.log('cart items is...', cartItems);
+
         cartItems.forEach(async (item) => {
             const service = await Service.findById(item.services);
             var newOrderDetails = new OrderDetails();
