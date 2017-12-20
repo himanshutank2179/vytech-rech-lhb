@@ -131,6 +131,9 @@ router.route('/users/:user_id')
 router.route('/users/spend-money/:user_id')
     .get(UsersController.spendMony);
 
+router.route('/users/spend-money/:user_id')
+    .get(UsersController.orderHistory);
+
 
 
 
