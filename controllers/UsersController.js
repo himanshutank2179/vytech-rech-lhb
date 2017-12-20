@@ -135,7 +135,7 @@ module.exports = {
     orderHistory: async (req, res, next) => {
         const user_id = req.params.user_id;
         var orders = await Order.find({user: user_id});
-        orders = orders.forEach(async (order) => {
+        orders.forEach(async (order) => {
             order_details = await OrderDetails.find({order: order._id});
             return order.push(order_details);
         });
