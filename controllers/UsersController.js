@@ -121,13 +121,12 @@ module.exports = {
         console.log(user_id);
         var orders = await Order.find({user:user_id});
         var total_price = 0;
-        total_price = orders.forEach(function (order) {
+        total_price = await orders.forEach(function (order) {
            return total_price = (total_price + order.texable_amount);
         });
         res.json({
             status: 200,
-            data: total_price,
-            fuck: 'land kho gaya',
+            data: total_price
 
         });
     }
