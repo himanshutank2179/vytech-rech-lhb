@@ -139,7 +139,7 @@ module.exports = {
         orders.forEach(async (order) => {
             order_details = await OrderDetails.find({order: order._id});
             order['order_details'] = order_details;
-            allOrders.push(order);
+            allOrders.push(order_details);
         });
         res.json({
             status: 200,
