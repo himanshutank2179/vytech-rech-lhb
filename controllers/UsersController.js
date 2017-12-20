@@ -1,6 +1,7 @@
 const User = require('../server/models/User');
 const Branch = require('../server/models/Branch');
 const Order = require('../server/models/Order');
+const OrderDetails = require('../server/models/OrderDetails');
 const jsonwebtoken = require('jsonwebtoken');
 var config = require('../config');
 const secretKey = config.secretKey;
@@ -118,8 +119,7 @@ module.exports = {
 
     spendMony: async (req, res, next) => {
         const user_id = req.params.user_id;
-        console.log(user_id);
-        var orders = await Order.find({user:user_id});
+        var orders = await Order.find({user: user_id});
         var total_price = 0;
         orders.forEach(function (order) {
             total_price += order.texable_amount;
@@ -130,5 +130,19 @@ module.exports = {
             data: total_price
 
         });
+    },
+
+    orderHistory: async (req, res, next) => {
+        const user_id = req.params.user_id;
+        var orders = await Order.find({user: user_id});
+        orders.forEach(async (order) => {
+            order_details = await OrderDetails.find({order: order._id});
+            order.push(order_details);
+        });
+        res.json({
+            status: 200,
+            data: orders
+        });
+
     }
 };
