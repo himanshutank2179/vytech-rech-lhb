@@ -120,6 +120,9 @@ router.route('/users')
 router.route('/users/get-employees/:branch_id/:time')
     .get(UsersController.getEmployees);
 
+//USER REGISTER WS
+router.route('/fb-login').post(UsersController.fbLogin);
+
 
 
 
