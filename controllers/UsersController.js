@@ -29,7 +29,7 @@ module.exports = {
     newUser: async (req, res, next) => {
         const branchId = req.body.branch_id;
         var newUser = new User(req.body);
-        if(branchId){
+        if (branchId) {
             const branch = await Branch.findById({_id: branchId});
             newUser.branch = branch;
         }
@@ -42,7 +42,7 @@ module.exports = {
         const email = req.body.email;
         const password = req.body.password;
         const user = await User.findOne({email});
-        console.log(user);
+
         if (!user) {
             res.send({'status': 404, 'message': 'login failed.'});
         } else if (user) {
@@ -64,12 +64,40 @@ module.exports = {
     },
 
     getEmployees: async (req, res, next) => {
-        const { branch_id, time } = req.params;
-        const users = await User.find({branch:branch_id});
+        const {branch_id, time} = req.params;
+        const users = await User.find({branch: branch_id});
         res.json({
             status: 200,
             data: users,
         });
 
+    },
+    fbLogin: async (req, res, next) => {
+        const email = req.body.email;
+        const user = await User.find({email});
+        if (user.length == 0) {
+            var newUser = new User(req.body);
+            newUser.password = 1234567890;
+            newUser.user_type = 4;
+            const user = await newUser.save();
+
+            //generating web token...
+            var token = createToken(user);
+            res.json({
+                status: 200,
+                message: "successfuly login!",
+                data: user,
+                token: token
+            });
+        } else {
+            //generating web token...
+            var token = createToken(user);
+            res.json({
+                status: 200,
+                message: "successfuly login!",
+                data: user,
+                token: token
+            });
+        }
     }
 };
