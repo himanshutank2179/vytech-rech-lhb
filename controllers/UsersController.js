@@ -140,7 +140,7 @@ module.exports = {
 
             order_details = await OrderDetails.find({order: order._id});
 
-            order['order_details'] = order_details;
+            order['order_details'] = 'okokokokokoko';
 
         });
         res.json({
