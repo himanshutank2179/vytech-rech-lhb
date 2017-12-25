@@ -139,7 +139,7 @@ module.exports = {
         order_items = [];
 
         var newOrdes = await orders.forEach(async (order) => {                    
-            order_details = await OrderDetails.find({order: order._id});
+            order_details = await OrderDetails.find({order: order._id}).populate('service');
             order_details.forEach(async (od) => {
                 res.json({
                     status: 200,
