@@ -148,7 +148,7 @@ module.exports = {
         });
         res.json({
             status: 200,
-            data: order_details
+            data: order_items
         });
 
     }
