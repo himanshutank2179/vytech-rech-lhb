@@ -140,14 +140,16 @@ module.exports = {
 
         var newOrdes = await orders.forEach(async (order) => {                    
             order_details = await OrderDetails.find({order: order._id}).populate('service');
+            var services = [];
             order_details.forEach(async (od) => {
-                res.json({
-                    status: 200,
-                    data: od
-                });
+                services.push(od);
+                
                   order_items.push(od);  
             });
-            
+            res.json({
+                status: 200,
+                data: od
+            });
             //order_items.push(order_details);
         });
       
