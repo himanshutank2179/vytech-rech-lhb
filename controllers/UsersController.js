@@ -145,7 +145,7 @@ module.exports = {
                   order_items.push(od);  
             });
             
-            order_items.push(order_details);
+            //order_items.push(order_details);
             
 
         });
