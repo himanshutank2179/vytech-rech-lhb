@@ -157,8 +157,8 @@ module.exports = {
             services: services,
             order_items:order_items,
             order_de:order_de,
-            orders:orders,
-            newordes:newOrdes
+            orders:orders
+            
         });
       
        
