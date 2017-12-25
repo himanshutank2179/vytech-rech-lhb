@@ -141,14 +141,17 @@ module.exports = {
           var newOrdes = await orders.forEach(async (order) => {
 
             order_details = await OrderDetails.find({order: order._id});
-            res.json({
-                status: 200,
-                data: order_details
+            order_details.forEach(async (od) => {
+                  order_items.push(od);  
             });
             
             order_items.push(order_details);
             
 
+        });
+        res.json({
+            status: 200,
+            data: order_items
         });
        
 
