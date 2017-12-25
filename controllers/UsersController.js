@@ -158,7 +158,7 @@ module.exports = {
             order_items:order_items,
             order_de:order_de,
             orders:orders,
-            newOrdes:newOrdes
+            newordes:newOrdes
         });
       
        
