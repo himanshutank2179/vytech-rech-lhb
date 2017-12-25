@@ -139,9 +139,9 @@ module.exports = {
        var order_items = [];
         var services = [];
         var order_de = [];
-
+        var order_details;
         var newOrdes = await orders.forEach(async (order) => {                    
-            var order_details = await OrderDetails.find({order: order._id}).populate('service');
+            order_details = await OrderDetails.find({order: order._id}).populate('service');
             services.push(order_details);
             order_items.push(order_details.json());
 
