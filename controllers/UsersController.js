@@ -138,22 +138,25 @@ module.exports = {
 
        var order_items = [];
         var services = [];
+        var order_de = [];
 
         var newOrdes = await orders.forEach(async (order) => {                    
-            order_details = await OrderDetails.find({order: order._id}).populate('service');
-            
+            var order_details = await OrderDetails.find({order: order._id}).populate('service');
+            services.push(order_details);
+            order_items.push(order_details.json());
+
+            //using for each
             order_details.forEach(async (od) => {
-                services.push(od.json());
-                
-                  order_items.push(od);  
+                  order_de.push(od);  
             });
-            
-            //order_items.push(order_details);
+
         });
         res.json({
             status: 200,
-            data: services,
-            items: order_items
+            order_details: order_details,
+            services: services,
+            order_items:order_items,
+            order_de:order_de
         });
       
        
