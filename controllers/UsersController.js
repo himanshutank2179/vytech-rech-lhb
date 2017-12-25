@@ -136,21 +136,23 @@ module.exports = {
         const user_id = req.params.user_id;
         var orders = await Order.find({user: user_id});
 
-        order_items = [];
+       var order_items = [];
+        var services = [];
 
         var newOrdes = await orders.forEach(async (order) => {                    
             order_details = await OrderDetails.find({order: order._id}).populate('service');
-            var services = [];
+            
             order_details.forEach(async (od) => {
                 services.push(od);
                 
                   order_items.push(od);  
             });
-            res.json({
-                status: 200,
-                data: od
-            });
+            
             //order_items.push(order_details);
+        });
+        res.json({
+            status: 200,
+            data: services
         });
       
        
