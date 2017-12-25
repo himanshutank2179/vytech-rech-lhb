@@ -134,7 +134,7 @@ module.exports = {
 
     orderHistory: async (req, res, next) => {
         const user_id = req.params.user_id;
-        var orders = await Order.find({user: user_id});
+        var orders = await Order.find({user: user_id}).populate('order_details');
 
        var order_items = [];
         var services = [];
