@@ -1,10 +1,10 @@
-import { Date } from 'core-js/library/web/timers';
 
 const express = require('express');
 //const router = express.Router();
 const router = require('express-promise-router')();
 const User = require('../models/User');
 const multer = require('multer');
+const Date = require('timers');
 
 const storage = multer.diskStorage({
     destination:function(req, file, callback){
