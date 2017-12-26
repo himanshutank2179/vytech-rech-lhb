@@ -1,3 +1,5 @@
+import { Date } from 'core-js/library/web/timers';
+
 const express = require('express');
 //const router = express.Router();
 const router = require('express-promise-router')();
@@ -9,7 +11,7 @@ const storage = multer.diskStorage({
         callback(null, './uploads');
     }, 
     filename: function(req, file, callback){
-        callback(null, file.originalname);
+        callback(null, new Date().toISOString() + file.originalname);
     }
 });
 
