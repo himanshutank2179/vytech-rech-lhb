@@ -25,6 +25,7 @@ const order = require('./server/routes/order');
 //Middleware
 app.use(morgan('combined'))
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
