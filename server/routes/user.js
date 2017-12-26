@@ -2,6 +2,18 @@ const express = require('express');
 //const router = express.Router();
 const router = require('express-promise-router')();
 const User = require('../models/User');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination:function(req, file, callback){
+        callback(null, './uploads');
+    }, 
+    filename: function(req, file, callback){
+        callback(null, file.originalname);
+    }
+});
+
+const upload = multer({storage:storage});
 
 //Importing controllers
 const UsersController = require('../../controllers/UsersController');
@@ -133,6 +145,8 @@ router.route('/users/spend-money/:user_id')
 
 router.route('/users/history/:user_id')
     .get(UsersController.orderHistory);
+
+router.route('/user/profile').post(upload.single('photo'), UsersController.profilePicUpload);    
 
 
 

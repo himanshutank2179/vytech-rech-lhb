@@ -1,9 +1,14 @@
+// import { Date } from 'core-js/library/web/timers';
+
 const User = require('../server/models/User');
 const Branch = require('../server/models/Branch');
 const Order = require('../server/models/Order');
 const OrderDetails = require('../server/models/OrderDetails');
 const jsonwebtoken = require('jsonwebtoken');
 var config = require('../config');
+
+
+
 const secretKey = config.secretKey;
 
 
@@ -158,5 +163,8 @@ module.exports = {
       
        
 
+    },
+    profilePicUpload: async (req, res, next) =>  {
+        console.log('photo is',req.file);
     }
 };
