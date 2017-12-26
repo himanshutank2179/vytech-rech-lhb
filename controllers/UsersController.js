@@ -166,5 +166,16 @@ module.exports = {
     },
     profilePicUpload: async (req, res, next) =>  {
         console.log('photo is',req.file);
+        console.log('user is', req.body.user_id);
+        console.log('**********************');
+        var user = await User.findById(req.body.user_id);
+        user.profile_pic = req.file.originalname;
+        const newUser = await user.save();
+        console.log(newUser);
+        res.json({
+            status: 200,
+            data: newUser,                        
+        });
+
     }
 };
