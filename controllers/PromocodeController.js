@@ -8,15 +8,11 @@ module.exports = {
         const promo = new Promocodes(req.body);
         const result = await promo.save();
         if (users) {
-            users.forEach(async (user) => {
-                console.log('user id is', user);
+            users.forEach(async (user) => {                
                 var usr = await User.findById(user);
-                const code = await Promocodes.findById(result._id);
-                console.log('code is', code);
-                console.log(usr);
+                const code = await Promocodes.findById(result._id);              
                 usr.promocodes.push(code);
-                const puser = await usr.save();
-                console.log('promocode saved to the user', puser);
+                const puser = await usr.save();               
             });
         }
 

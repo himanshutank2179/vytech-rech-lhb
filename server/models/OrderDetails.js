@@ -8,6 +8,7 @@ const orderDetailsSchema = new Schema({
     service_price: {type: String, require: true},
     /*employee: { type: mongoose.Schema.Types.ObjectId, ref: 'user'},*/
     /*branch: { type: mongoose.Schema.Types.ObjectId, ref: 'branch'},*/
+    
 
 }, {
     timestamp: true
