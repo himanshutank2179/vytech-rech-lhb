@@ -34,7 +34,7 @@ module.exports = {
 
         });
 
-        res.json({status: 200, data: cartItems});
+        res.json({status: 200, order:result,services: cartItems});
 
     },
     index: async (req, res, next) => {
