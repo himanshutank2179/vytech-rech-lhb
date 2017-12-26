@@ -134,32 +134,27 @@ module.exports = {
 
     orderHistory: async (req, res, next) => {
         const user_id = req.params.user_id;
-        var orders = await Order.find({user: user_id}).populate('order_details');
-
-       var order_items = [];
-        var services = [];
-        var order_de = [];
-        var order_details;
-          orders.forEach(async (order) => {                    
-            order_details = await OrderDetails.find({order: order._id}).populate('service');
-            services.push(order_details.json());
-            order_items.push(order_details.json());
-
-            //using for each
-            order_details.forEach(async (od) => {
-                  order_de.push(od);  
-            });
-
-        });
+        var orders = await Order.find({user: user_id})
+        .populate({ 
+            path: 'orderdetail',
+            populate: {
+              path: 'service',
+              populate:{
+                path: 'branch',
+              },
+              populate:{
+                path: 'category',
+              }       
+            } 
+         });
+        
         res.json({
             status: 200,
-            order_details: order_details,
-            services: services,
-            order_items:order_items,
-            order_de:order_de,
-            orders:orders
+            data: orders,
+            
             
         });
+       
       
        
 

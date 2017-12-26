@@ -16,16 +16,20 @@ module.exports = {
         var newOrder = Order(req.body);
         newOrder.user = user_id;
         const result = await newOrder.save();
-
+        console.log('order save result', result);
         var cartItems = await Cart.find({user: user_id});
 
-        cartItems.forEach(async (item) => {
+        cartItems.forEach(async (item) => {            
+            var order = await Order.findById(result._id);
+            console.log('order', order);
             const service = await Service.findById(item.services);
             var newOrderDetails = new OrderDetails();
             newOrderDetails.service = service;
             newOrderDetails.service_price = item.price;
             newOrderDetails.order = result;
-            await newOrderDetails.save();
+            var od = await newOrderDetails.save();
+            order.orderdetail.push(od);
+            await order.save();
             await Cart.remove({user: user_id});
 
         });

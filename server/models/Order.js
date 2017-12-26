@@ -12,6 +12,7 @@ const orderSchema = new Schema({
     status: {type: Number, default: 1}, // 1 = pending, 2 = order placed
     appointment_time: {type: Date},
     texable_amount: {type: Number},
+    orderdetail:[{type: mongoose.Schema.Types.ObjectId, ref: 'orderdetail'}]
 }, {
     timestamp: true
 });
