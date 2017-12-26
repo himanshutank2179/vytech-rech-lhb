@@ -4,14 +4,14 @@ const express = require('express');
 const router = require('express-promise-router')();
 const User = require('../models/User');
 const multer = require('multer');
-const Date = require('timers');
+
 
 const storage = multer.diskStorage({
     destination:function(req, file, callback){
         callback(null, './uploads');
     }, 
     filename: function(req, file, callback){
-        callback(null, new Date().toISOString() + file.originalname);
+        callback(null, file.originalname);
     }
 });
 
