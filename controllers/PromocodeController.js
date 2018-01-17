@@ -5,7 +5,7 @@ module.exports = {
 
     create: async (req, res, next) => {
         const users = req.body.users;
-        console.log(req.body);
+        res.json({status: 200, message: 'promocode inserted success.', data: req.body});
         const promo = new Promocodes(req.body);
         const result = await promo.save();
         if (users) {
