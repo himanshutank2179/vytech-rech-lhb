@@ -63,7 +63,7 @@ router.route('/promocodes/create')
 
 router.route('/promocodes').get(PromocodeController.index) // will get all branches
 
-router.route('/promocodes/:branch_id')
+router.route('/promocodes/:promocode_id')
     .get(PromocodeController.view) // will get single branch obj based on id
     .patch(PromocodeController.update) // will update that particuler record/document based on id
     .delete(PromocodeController.delete); // will delete that perticular record/document based o

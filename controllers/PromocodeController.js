@@ -27,7 +27,9 @@ module.exports = {
 
     },
     view: async (req, res, next) => {
-
+        const {promocode_id} = req.params;
+        const codes = await Promocodes.findById(promocode_id);
+        res.json({status: 200, data: codes});
     },
     delete: async (req, res, next) => {
 
