@@ -6,8 +6,8 @@ const promocodeSchema = new Schema({
     discount: {type: String},
     discount_type: {type: String},
     image: {type: String},
-    code_start: {Type: Date},
-    code_end: {Type: Date},
+    code_start: {Type: String},
+    code_end: {Type: String},
     services: [{type: mongoose.Schema.Types.ObjectId, ref: 'service'}],
 }, {
     timestamp: true
