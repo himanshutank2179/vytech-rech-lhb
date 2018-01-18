@@ -19,22 +19,26 @@ module.exports = {
 
         res.json({status: 200, message: 'promocode inserted success.', data: result});
     },
+
     index: async (req, res, next) => {
         const promos = await Promocodes.find().populate('services');
         res.json({status: 200, data: promos});
     },
+
     update: async (req, res, next) => {
 
     },
+
     view: async (req, res, next) => {
         const {promocode_id} = req.params;
         const codes = await Promocodes.findById(promocode_id).populate('services');
         res.json({status: 200, data: codes});
     },
+
     delete: async (req, res, next) => {
         const {promocode_id} = req.params;
         const result = await Promocodes.findByIdAndRemove(promocode_id);
-        var users  = await User.find();
+        var users = await User.find();
         if (users) {
             users.forEach(async (user) => {
                 var usr = await User.findById(user);
@@ -44,6 +48,7 @@ module.exports = {
         }
         res.json({status: 200, message: 'promo code deleted success.'});
     },
+
     getUserPromocode: async (req, res, next) => {
         const user_id = req.params.user_id;
         /*const user = await User.findById(user_id).populate('promocodes');*/
