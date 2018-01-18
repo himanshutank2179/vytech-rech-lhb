@@ -32,7 +32,9 @@ module.exports = {
         res.json({status: 200, data: codes});
     },
     delete: async (req, res, next) => {
-
+        const {promocode_id} = req.params;
+        const result = await Promocodes.findByIdAndRemove(promocode_id);
+        res.json({status: 200, message: 'promo code deleted success.'});
     },
     getUserPromocode: async (req, res, next) => {
         const user_id = req.params.user_id;
