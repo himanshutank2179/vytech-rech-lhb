@@ -3,6 +3,7 @@ const User = require('../server/models/User');
 
 module.exports = {
 
+
     create: async (req, res, next) => {
         const users = req.body.users;
         const promo = new Promocodes(req.body);
