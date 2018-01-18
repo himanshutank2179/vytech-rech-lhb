@@ -8,7 +8,6 @@ const jsonwebtoken = require('jsonwebtoken');
 var config = require('../config');
 
 
-
 const secretKey = config.secretKey;
 
 
@@ -140,32 +139,31 @@ module.exports = {
     orderHistory: async (req, res, next) => {
         const user_id = req.params.user_id;
         var orders = await Order.find({user: user_id})
-        .populate({ 
-            path: 'orderdetail',
-            populate: {
-              path: 'service',
-              populate:{
-                path: 'branch',
-              },
-              populate:{
-                path: 'category',
-              }       
-            } 
-         });
-        
+            .populate({
+                path: 'orderdetail',
+                populate: {
+                    path: 'service',
+                    populate: {
+                        path: 'branch',
+                    },
+                    populate: {
+                        path: 'category',
+                    }
+                }
+            });
+
         res.json({
             status: 200,
             data: orders,
-            
-            
+
+
         });
-       
-      
-       
+
 
     },
-    profilePicUpload: async (req, res, next) =>  {
-        console.log('photo is',req.file);
+
+    profilePicUpload: async (req, res, next) => {
+        console.log('photo is', req.file);
         console.log('user is', req.body.user_id);
         console.log('**********************');
         var user = await User.findById(req.body.user_id);
@@ -174,8 +172,20 @@ module.exports = {
         console.log(newUser);
         res.json({
             status: 200,
-            data: newUser,                        
+            data: newUser,
         });
 
-    }
+    },
+
+    delete: async (req, res, next) => {
+        const {user_id} = req.params;
+        const result = await User.findByIdAndRemove(user_id);
+
+        if (result) {
+            let removedResult = await Order.remove({user:user_id});
+        }
+
+        res.json({status: 200, message: 'user deleted success.'});
+
+    },
 };

@@ -37,13 +37,16 @@ module.exports = {
         res.json({status: 200, order: result, services: cartItems});
 
     },
+
     index: async (req, res, next) => {
         const orders = await Order.find();
         res.json({status: 200, data: orders});
     },
+
     update: async (req, res, next) => {
 
     },
+
     view: async (req, res, next) => {
         const {order_id} = req.params;
         const order = await Order.findById(order_id);
