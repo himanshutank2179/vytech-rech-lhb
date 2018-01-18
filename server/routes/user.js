@@ -1,4 +1,3 @@
-
 const express = require('express');
 //const router = express.Router();
 const router = require('express-promise-router')();
@@ -7,20 +6,18 @@ const multer = require('multer');
 
 
 const storage = multer.diskStorage({
-    destination:function(req, file, callback){
+    destination: function (req, file, callback) {
         callback(null, './uploads');
-    }, 
-    filename: function(req, file, callback){
+    },
+    filename: function (req, file, callback) {
         callback(null, file.originalname);
     }
 });
 
-const upload = multer({storage:storage});
+const upload = multer({storage: storage});
 
 //Importing controllers
 const UsersController = require('../../controllers/UsersController');
-
-
 
 
 /*mongoose.Promise = global.Promise;
@@ -39,7 +36,6 @@ router.get('/', function (req, res) {
 /////////////////////////////////
 ////// USERS WS /////////////////
 ////////////////////////////////
-
 
 
 /////////////////////////////////
@@ -116,9 +112,6 @@ router.get('/', function (req, res) {
 });*/
 
 
-
-
-
 //////////////////// new parts begins from here /////////////////////////////
 
 //USER REGISTER WS
@@ -151,29 +144,7 @@ router.route('/users/spend-money/:user_id')
 router.route('/users/history/:user_id')
     .get(UsersController.orderHistory);
 
-router.route('/user/profile').post(upload.single('photo'), UsersController.profilePicUpload);    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+router.route('/user/profile').post(upload.single('photo'), UsersController.profilePicUpload);
 
 
 module.exports = router;
