@@ -138,6 +138,8 @@ router.route('/users/get-employees/:branch_id/:time')
 router.route('/fb-login').post(UsersController.fbLogin);
 
 
+router.route('/get-all-employees').get(UsersController.getAllEmployees);
+
 router.route('/users/:user_id')
     .get(UsersController.view)
     .patch(UsersController.update)

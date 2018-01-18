@@ -89,7 +89,6 @@ module.exports = {
             status: 200,
             data: users,
         });
-
     },
 
     fbLogin: async (req, res, next) => {
@@ -182,10 +181,18 @@ module.exports = {
         const result = await User.findByIdAndRemove(user_id);
 
         if (result) {
-            let removedResult = await Order.remove({user:user_id});
+            let removedResult = await Order.remove({user: user_id});
         }
 
         res.json({status: 200, message: 'user deleted success.'});
 
+    },
+
+    getAllEmployees: async (req, res, next) => {
+        const users = await User.find({user_type: 3});
+        res.json({
+            status: 200,
+            data: users,
+        });
     },
 };
