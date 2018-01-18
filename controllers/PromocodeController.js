@@ -8,11 +8,11 @@ module.exports = {
         const promo = new Promocodes(req.body);
         const result = await promo.save();
         if (users) {
-            users.forEach(async (user) => {                
+            users.forEach(async (user) => {
                 var usr = await User.findById(user);
-                const code = await Promocodes.findById(result._id);              
+                const code = await Promocodes.findById(result._id);
                 usr.promocodes.push(code);
-                const puser = await usr.save();               
+                const puser = await usr.save();
             });
         }
 
@@ -39,12 +39,12 @@ module.exports = {
     getUserPromocode: async (req, res, next) => {
         const user_id = req.params.user_id;
         /*const user = await User.findById(user_id).populate('promocodes');*/
-        const user = await User.findById(user_id).populate({ 
-     path: 'promocodes',
-     populate: {
-       path: 'services'       
-     } 
-  });
+        const user = await User.findById(user_id).populate({
+            path: 'promocodes',
+            populate: {
+                path: 'services'
+            }
+        });
         res.json({status: 200, data: user.promocodes});
 
     }
