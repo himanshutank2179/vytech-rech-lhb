@@ -45,7 +45,9 @@ module.exports = {
 
     },
     view: async (req, res, next) => {
-
+        const {order_id} = req.params;
+        const order = await Order.findById(order_id);
+        res.json({status: 200, data: order});
     },
 
     delete: async (req, res, next) => {
