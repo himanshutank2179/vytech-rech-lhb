@@ -34,6 +34,14 @@ module.exports = {
     delete: async (req, res, next) => {
         const {promocode_id} = req.params;
         const result = await Promocodes.findByIdAndRemove(promocode_id);
+        var users  = await User.find();
+        if (users) {
+            users.forEach(async (user) => {
+                var usr = await User.findById(user);
+                usr.promocodes.pull(promocode_id);
+                const puser = await usr.save();
+            });
+        }
         res.json({status: 200, message: 'promo code deleted success.'});
     },
     getUserPromocode: async (req, res, next) => {
