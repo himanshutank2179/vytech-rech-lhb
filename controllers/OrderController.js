@@ -46,6 +46,7 @@ module.exports = {
     view: async (req, res, next) => {
 
     },
+
     delete: async (req, res, next) => {
         const {order_id} = req.params;
         const result = await Order.findByIdAndRemove(order_id);
