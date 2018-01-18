@@ -19,7 +19,7 @@ module.exports = {
         console.log('order save result', result);
         var cartItems = await Cart.find({user: user_id});
 
-        cartItems.forEach(async (item) => {            
+        cartItems.forEach(async (item) => {
             var order = await Order.findById(result._id);
             console.log('order', order);
             const service = await Service.findById(item.services);
@@ -34,7 +34,7 @@ module.exports = {
 
         });
 
-        res.json({status: 200, order:result,services: cartItems});
+        res.json({status: 200, order: result, services: cartItems});
 
     },
     index: async (req, res, next) => {
@@ -47,7 +47,9 @@ module.exports = {
 
     },
     delete: async (req, res, next) => {
-
+        const {order_id} = req.params;
+        const result = await Order.findByIdAndRemove(order_id);
+        res.json({status: 200, message: 'order deleted success.'});
     },
 
 };
