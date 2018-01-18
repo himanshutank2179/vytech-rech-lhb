@@ -38,7 +38,8 @@ module.exports = {
 
     },
     index: async (req, res, next) => {
-
+        const orders = await Order.find();
+        res.json({status: 200, data: orders});
     },
     update: async (req, res, next) => {
 
