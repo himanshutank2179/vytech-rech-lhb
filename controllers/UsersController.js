@@ -162,6 +162,7 @@ module.exports = {
     },
 
     profilePicUpload: async (req, res, next) => {
+        res.json(req.file);
         console.log('photo is', req.file);
         console.log('user is', req.body.user_id);
         console.log('**********************');
