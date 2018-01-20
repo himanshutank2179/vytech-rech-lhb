@@ -174,7 +174,6 @@ module.exports = {
             status: 200,
             data: newUser,
         });
-
     },
 
     delete: async (req, res, next) => {
